@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\infra\Adapters;
+namespace App\Infra\Adapters;
 
 use App\Application\Contracts\Storage;
 
 final class LocalStorageAdapter implements Storage
 {
-    public function store(string $filename, string $path, string $content)
+    public function store(string $fileName, string $path, string $content)
     {
-        file_put_contents(__DIR__ . DIRECTORY_SEPARATOR . $filename, $$content);
+        file_put_contents($path . DIRECTORY_SEPARATOR . $fileName, $content);
     }
 }
