@@ -14,7 +14,7 @@ final class Registration
     private Email $email;
     private DateTimeInterface $birthDate;
     private Cpf $registrationNumber;
-    private DateTimeInterface $registrataionAt;
+    private DateTimeInterface $registrationAt;
 
     /**
      * @return string
@@ -61,7 +61,7 @@ final class Registration
     }
 
     /**
-     * @param DateTimeInterface
+     * @param DateTimeInterface $birthDate
      * @return Registration
      */
     public function setBirthDate(DateTimeInterface $birthDate): Registration
@@ -93,16 +93,16 @@ final class Registration
      */
     public function getRegistrationAt(): DateTimeInterface
     {
-        return $this->registrataionAt;
+        return $this->registrationAt;
     }
 
     /**
-     * @param DateTimeInterface $registrataionAt
+     * @param DateTimeInterface $registrationAt
      * @return Registration
      */
-    public function setRegistrationAt(DateTimeInterface $registrataionAt): Registration
+    public function setRegistrationAt(DateTimeInterface $registrationAt): Registration
     {
-        $this->registrataionAt = $registrataionAt;
+        $this->registrationAt = $registrationAt;
         return $this;
     }
 }
