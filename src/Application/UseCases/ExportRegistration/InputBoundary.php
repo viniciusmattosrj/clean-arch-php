@@ -7,18 +7,29 @@ namespace App\Application\UseCases\ExportRegistration;
 
 final class InputBoundary
 {
-    private string $cpf
+    private string $registrationNumber;
+    private string $pdfFileName;
+    private string $path;
 
-    public function __construct(string $cpf)
+    public function __construct(string $registrationNumber, string $pdfFileName, string $path)
     {
-        $this->cpf = $cpf;
+        $this->registrationNumber = $registrationNumber;
+        $this->pdfFileName = $pdfFileName;
+        $this->path = $path;
     }
 
-    /**
-     * @return string
-     */
-    public function getCpf(): string
+    public function getRegistrationNumber(): string
     {
-        return $this->cpf;
+        return $this->registrationNumber;
+    }
+
+    public function getPdfFileName():  string
+    {
+        return $this->pdfFileName;
+    }
+
+    public function getPath(): string
+    {
+        return $this->path;
     }
 }

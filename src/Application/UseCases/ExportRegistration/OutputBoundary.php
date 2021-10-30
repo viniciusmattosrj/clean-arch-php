@@ -6,18 +6,10 @@ namespace App\Application\UseCases\ExportRegistration;
 
 final class OutputBoundary
 {
-    private string $name;
-    private string $email;
-    private string $birthDate;
-    private string $registrationNumber;
-    private string $registrataionAt;
+    private string $fullFileName;
 
-    public function __construct(array $values)
+    public function __construct(string $fullFileName)
     {
-        $this->name = $values['name'] ?? '';
-        $this->email = $value['email'] ?? '';
-        $this->birthDate = $values['birthDate'] ?? '';
-        $this->registrationNumber = $values['registrationNumber'] ?? '';
-        $this->registrataionAt = $values['registrationNumber'] ?? '';
+        $this->fullFileName = $fullFileName;
     }
 }

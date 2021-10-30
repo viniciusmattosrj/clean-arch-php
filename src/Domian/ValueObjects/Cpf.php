@@ -16,11 +16,6 @@ final class Cpf
         $this->$cpf = $cpf;
     }
 
-    public function __toString()
-    {
-        return $this->cpf;
-    }
-
     private function validate($cpf)
     {
         // Extrai somente os números
@@ -47,5 +42,10 @@ final class Cpf
             }
         }
         return true;
+    }
+
+    public function __toString(): string
+    {
+        return $this->cpf;
     }
 }
