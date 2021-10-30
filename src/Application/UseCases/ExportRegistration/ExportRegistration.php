@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\UseCases\ExportRegistration;
 
-use App\Application\Contracts\ExporterRegistrationPdfExporter;
+use App\Application\Contracts\ExportRegistrationPdfExporter;
 use App\Application\Contracts\Storage;
 use App\Domain\Repositories\LoadRegistrationRepository;
 use App\Domain\ValueObjects\Cpf;
@@ -12,12 +12,12 @@ use App\Domain\ValueObjects\Cpf;
 final class ExportRegistration
 {
     private LoadRegistrationRepository $repository;
-    private ExporterRegistrationPdfExporter $pdfExporter;
+    private ExportRegistrationPdfExporter $pdfExporter;
     private Storage $storage;
 
     public function __construct(
         LoadRegistrationRepository $repository,
-        ExporterRegistrationPdfExporter $pdfExporter,
+        ExportRegistrationPdfExporter $pdfExporter,
         Storage $storage
     ) {
         $this->repository = $repository;
