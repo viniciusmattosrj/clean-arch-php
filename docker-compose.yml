@@ -1,0 +1,19 @@
+version: '3.5'
+services:
+  app:
+    container_name: clearn-arch-desafio-app
+    image: dersonsena/php-nginx-dev
+    volume:
+      - ./:/var/www/html
+    enviroment:
+      - XDEBUG_START_WITH_REQUEST=yes
+      - XDEBUG_DISCOVER_CLIENT_HOST=false
+    ports:
+      - '8080:80'
+      - '443:443'
+    networks:
+      - clean-arch-desafio-network
+
+networks:
+  clean-arch-desafio-network:
+    driver: bridge

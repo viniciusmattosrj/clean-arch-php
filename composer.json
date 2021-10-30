@@ -1,0 +1,19 @@
+{
+    "name": "viniciusmattos/clean-arch-desafio",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Vinicius Mattos",
+            "email": "viniciusmattos@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "ext-pdo": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
