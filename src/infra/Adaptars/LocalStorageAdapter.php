@@ -6,7 +6,7 @@ namespace App\infra\Adapters;
 
 use App\Application\Contracts\Storage;
 
-final class LocalStorage implements Storage
+final class LocalStorageAdapter implements Storage
 {
     public function store(string $filename, string $path, string $content)
     {

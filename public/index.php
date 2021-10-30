@@ -5,6 +5,8 @@ use App\Application\UseCases\ExportRegistration\InputBoundary;
 use App\Domain\Entities\Registration;
 use App\Domain\ValueObjects\Email;
 use App\Domain\ValueObjects\Cpf;
+use App\infra\Adapters\Html2PdfAdapter;
+use App\infra\Adapters\LocalStorageAdapter;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -19,8 +21,12 @@ $registration->setName('Vinicius Mattos')
 
 /* UseCases */
 $loadRegistrationRepository = new stdClass();
-$pdfExporter = new stdClass();
-$storage = new stdClass();
+$pdfExporter = new Html2PdfAdapter();
+$storage = new LocalStorageAdapter();
+
+$content = $pdfExporter->generate($registration);
+$storage->store('test.pdf', __DIR__ . '/../storage/registrations', $content);
+die;
 
 $exportRegistrationUseCase = new ExportRegistration($loadRegistrationRepository, $pdfExporter, $storage);
 $inputBoundary = new InputBoundary('01234567890', 'xpto', __DIR__ . '/../storage', );
