@@ -3,9 +3,9 @@ services:
   app:
     container_name: clearn-arch-desafio-app
     image: dersonsena/php-nginx-dev
-    volume:
+    volumes:
       - ./:/var/www/html
-    enviroment:
+    environment:
       - XDEBUG_START_WITH_REQUEST=yes
       - XDEBUG_DISCOVER_CLIENT_HOST=false
     ports:
