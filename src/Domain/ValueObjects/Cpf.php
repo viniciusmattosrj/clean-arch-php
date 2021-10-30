@@ -8,30 +8,29 @@ use DomainException;
 
 final class Cpf
 {
+    private string $cpf;
+
     public function __construct(string $cpf)
     {
         if (!$this->validate($cpf)) {
             throw new DomainException('CPF is not validate');
         }
-        $this->$cpf = $cpf;
+
+        $this->cpf = $cpf;
     }
 
-    private function validate($cpf)
+    private function validate(string $cpf)
     {
-        // Extrai somente os números
-        $cpf = preg_replace('/[^0-9]/is', '', $cpf);
+        $cpf = preg_replace( '/[^0-9]/is', '', $cpf );
 
-        // Verifica se foi informado todos os digitos corretamente
         if (strlen($cpf) != 11) {
             return false;
         }
 
-        // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
         if (preg_match('/(\d)\1{10}/', $cpf)) {
             return false;
         }
 
-        // Faz o calculo para validar o CPF
         for ($t = 9; $t < 11; $t++) {
             for ($d = 0, $c = 0; $c < $t; $c++) {
                 $d += $cpf[$c] * (($t + 1) - $c);
@@ -41,6 +40,7 @@ final class Cpf
                 return false;
             }
         }
+
         return true;
     }
 
