@@ -1,7 +1,13 @@
 <?php
 
+declare(strict_types=1);
 
-class ExportRegistrationCommand
+namespace App\Infra\Cli\Commands;
+
+final class ExportRegistrationCommand
 {
+    public function handle(): string
+    {
 
+    }
 }

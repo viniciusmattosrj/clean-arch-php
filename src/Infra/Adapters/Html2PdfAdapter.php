@@ -17,8 +17,7 @@ final class Html2PdfAdapter implements ExportRegistrationPdfExporter
         try {
             $html2pdf->setDefaultFont('Arial');
             $html2pdf->writeHTML(
-                "<p>Nome: {$registration->getName()}</p>
-                      <p>CPF: {$registration->getRegistrationNumber()}</p>"
+                "<p>Nome: {$registration->getName()}</p><p>CPF: {$registration->getRegistrationNumber()}</p>"
             );
 
             return $html2pdf->output('', 'S');

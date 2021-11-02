@@ -10,7 +10,12 @@
     "require": {
         "php": ">=7.4",
         "ext-pdo": "*",
-        "spipu/html2pdf": "^4.6"
+        "ext-json": "*",
+        "spipu/html2pdf": "^4.6",
+        "guzzlehttp/psr7": "1.8",
+        "robmorgan/phinx": "^0.11.7",
+        "vlucas/phpdotenv": "^5.3",
+        "dompdf/dompdf": "^v1.0.2"
     },
     "autoload": {
         "psr-4": {

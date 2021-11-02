@@ -20,9 +20,9 @@ final class ExportRegistration
         ExportRegistrationPdfExporter $pdfExporter,
         Storage $storage
     ) {
-        $this->repository = $repository;
+        $this->repository  = $repository;
         $this->pdfExporter = $pdfExporter;
-        $this->storage = $storage;
+        $this->storage     = $storage;
     }
 
     public function handle(InputBoundary  $input): OutputBoundary

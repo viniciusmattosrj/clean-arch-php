@@ -1,10 +1,15 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Infra\Presentation;
 
+use App\Infra\Http\Controllers\Presentation;
 
-class ExporterRegistrationPresenter
+final class ExporterRegistrationPresenter implements Presentation
 {
-
+    public function output(array $data): string
+    {
+        return json_enconde($data);
+    }
 }

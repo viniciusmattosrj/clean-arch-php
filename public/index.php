@@ -1,14 +1,22 @@
 <?php
 
-use App\Application\UseCases\ExportRegistration\ExportRegistration;
-use App\Application\UseCases\ExportRegistration\InputBoundary;
+use App\Application\Usecases\ExportRegistration\ExportRegistration;
 use App\Domain\Entities\Registration;
-use App\Domain\ValueObjects\Email;
 use App\Domain\ValueObjects\Cpf;
+use App\Domain\ValueObjects\Email;
 use App\Infra\Adapters\Html2PdfAdapter;
+//use App\Infra\Adapters\DomPdfAdapter;
 use App\Infra\Adapters\LocalStorageAdapter;
+use App\Infra\Http\Controllers\ExportRegistrationController;
+use App\Infra\Presentation\ExportRegistrationPresenter;
+use App\Infra\Repositories\MySQL\PdoRegistrationRepository;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
+//ini_set('display_errors', 'off');
 require_once __DIR__ . '/../vendor/autoload.php';
+
+$appConfig = require __DIR__ . '/../config/config.php';
 
 /* Entities */
 $registration = new Registration();
@@ -19,15 +27,43 @@ $registration->setName('Vinicius Mattos')
     ->setRegistrationAt(new DateTimeImmutable())
     ->setRegistrationNumber(new Cpf('01234567890'));
 
+try {
+    $dsn = sprintf(
+        'mysql:host=%s;port=%s;dbname=%s;charset=%s',
+        $appConfig['db']['host'],
+        $appConfig['db']['port'],
+        $appConfig['db']['dbname'],
+        $appConfig['db']['charset']
+    );
+
+    $pdo = new PDO($dsn, $appConfig['db']['username'], $appConfig['db']['password']);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    $pdo->setAttribute(PDO::ATTR_PERSISTENT, TRUE);
+} catch (PDOException $e) {
+    echo 'Connection failed: ' . $e->getMessage();
+}
+
+
 /* UseCases */
-$loadRegistrationRepo = new stdClass();
+$loadRegistrationRepo = new PdoRegistrationRepository($pdo);
 $pdfExporter = new Html2PdfAdapter();
+//$pdfExporter = new DomPdfAdapter();
 $storage = new LocalStorageAdapter();
 
-$content = $pdfExporter->generate($registration);
-$storage->store('test.pdf', __DIR__ . '/../storage/registrations', $content);
-die;
-
 $exportRegistrationUseCase = new ExportRegistration($loadRegistrationRepo, $pdfExporter, $storage);
-$inputBoundary = new InputBoundary('01234567890', 'xpto', __DIR__ . '/../storage', );
-$output = $exportRegistrationUseCase->handle($inputBoundary);
+$request = new Request('GET', 'http://127.0.0.1:8080');
+$response = new Response();
+
+/* Controllers */
+$exportRegistrationController = new ExportRegistrationController(
+    $request,
+    $response,
+    $exportRegistrationUseCase
+);
+
+$exportRegistrationPresenter = new ExportRegistrationPresenter();
+
+echo $exportRegistrationController
+    ->handle($exportRegistrationPresenter)
+    ->getBody();

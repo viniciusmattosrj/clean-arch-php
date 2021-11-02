@@ -9,5 +9,5 @@ use App\Domain\ValueObjects\Cpf;
 
 interface LoadRegistrationRepository
 {
-    public function loadByRegistrationNumber(Cpf $cpf) :Registration;
+    public function loadByRegistrationNumber(Cpf $cpf): Registration;
 }
