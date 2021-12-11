@@ -1,19 +1,34 @@
-version: '3.5'
+version: "3.5"
 services:
-  app:
-    container_name: clearn-arch-desafio-app
-    image: dersonsena/php-nginx-dev
-    volumes:
-      - ./:/var/www/html
-    environment:
-      - XDEBUG_START_WITH_REQUEST=yes
-      - XDEBUG_DISCOVER_CLIENT_HOST=false
-    ports:
-      - '8080:80'
-      - '443:443'
-    networks:
-      - clean-arch-desafio-network
+    app:
+        container_name: clean-arch-app
+        image: dersonsena/php-nginx-dev
+        volumes:
+            - ./:/var/www/html
+        environment:
+            - XDEBUG_START_WITH_REQUEST=yes
+            - XDEBUG_DISCOVER_CLIENT_HOST=false
+        ports:
+            - "8080:80"
+            - "443:443"
+        networks:
+            - clean-arch-app-network
+
+    mysql:
+        image: mysql:5.7
+        container_name: clean-arch-app-db
+        command: --default-authentication-plugin=mysql_native_password --explicit_defaults_for_timestamp=1
+        restart: always
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: secret
+            MYSQL_DATABASE: clean_arch_app
+        networks:
+            - clean-arch-app-network
+        volumes:
+            - ./.docker/data:/var/lib/mysql
 
 networks:
-  clean-arch-desafio-network:
-    driver: bridge
+    clean-arch-app-network:
+        driver: bridge
